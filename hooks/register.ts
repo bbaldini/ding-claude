@@ -52,8 +52,21 @@ const TTY_SH = [
 ].join('\n')
 const toTty = ($: EngineInterface, seq: string) => fire($, ['sh', '-c', TTY_SH, 'sh', seq])
 
+// Badge (cloche/campanella) sull'icona della barra delle applicazioni di Windows: vedi badge.ps1.
+const PS = ['powershell.exe', '-NoProfile', '-NonInteractive', '-ExecutionPolicy', 'Bypass']
+const psLiteral = (s: string) => `'${s.replace(/'/g, "''")}'`
+
+// Avvia badge.ps1 come processo Windows a sé (nascosto): resta in attesa finché non torni sulla finestra.
+const showBadge = ($: EngineInterface, script: string, hwnd: string) => {
+  const args = ['-NoProfile', '-NonInteractive', '-ExecutionPolicy', 'Bypass', '-File', `"${script}"`, '-Mode', 'show', '-Hwnd', hwnd]
+  const cmd = `Start-Process powershell.exe -WindowStyle Hidden -ArgumentList ${args.map(psLiteral).join(',')}`
+  fire($, [...PS, '-Command', cmd])
+}
+
 export const register: Register = on => {
   let platform: Platform = 'other'
+  let badgeScript: string | undefined // percorso Windows di badge.ps1
+  let hwnd: Promise<string | undefined> = Promise.resolve(undefined) // finestra del terminale
 
   on('session.start', async ($, e, next) => {
     const result = await next(e)
@@ -61,7 +74,22 @@ export const register: Register = on => {
     if (/linux/i.test(m.sysname) && /microsoft|wsl/i.test(m.release)) platform = 'wsl'
     else if (/linux/i.test(m.sysname)) platform = 'linux'
     else if (/darwin/i.test(m.sysname)) platform = 'mac'
+    if (platform === 'wsl') {
+      const r = await $.process.run(['wslpath', '-w', `${$.plugin.root}/hooks/badge.ps1`], { timeoutMs: 5000 }).catch(() => undefined)
+      badgeScript = r?.exitCode === 0 ? r.stdout.trim() || undefined : undefined
+    }
     return result
+  })
+
+  // Quando invii un prompt la finestra in primo piano è quella del terminale: la ricordo per il badge.
+  on('prompt.submit', ($, e, next) => {
+    if (platform === 'wsl' && badgeScript && !e.isMeta) {
+      hwnd = $.process
+        .run([...PS, '-File', badgeScript, '-Mode', 'capture'], { timeoutMs: 15000 })
+        .then(r => (r.exitCode === 0 && /^\d+$/.test(r.stdout.trim()) ? r.stdout.trim() : undefined))
+        .catch(() => undefined)
+    }
+    return next(e)
   })
 
   on('turn.start', ($, e, next) => {
@@ -87,6 +115,8 @@ export const register: Register = on => {
 
     if (platform === 'wsl') {
       fire($, ['powershell.exe', '-NoProfile', '-NonInteractive', '-Command', toastScript(title, body)])
+      const script = badgeScript
+      if (script) void hwnd.then(h => h && h !== '0' && showBadge($, script, h))
     } else if (platform === 'mac') {
       fire($, ['osascript', '-e', 'on run argv', '-e', 'display notification (item 2 of argv) with title (item 1 of argv)', '-e', 'end run', title, body])
     } else {
