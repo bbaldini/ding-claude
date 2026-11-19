@@ -1,0 +1,6 @@
+{
+  "name": "ding",
+  "owner": { "name": "bbaldini" },
+  "description": "Notifiche di fine risposta per Claude Code nel terminale.",
+  "plugins": [{ "name": "done-notify", "source": "./" }]
+}

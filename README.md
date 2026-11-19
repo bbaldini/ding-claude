@@ -1,2 +1,41 @@
-# ding-claude
-It tells you when Claude finished its task
+# ding-claude 🔔
+
+Plugin per Claude Code (terminale) che ti avvisa quando Claude **ha finito di rispondere**, così puoi cambiare finestra mentre lavora.
+
+Alla fine di ogni risposta:
+
+- **Notifica di sistema** con la prima riga della risposta e la durata
+  - WSL → toast di Windows (via `powershell.exe`, nessuna dipendenza)
+  - Linux → `notify-send`
+  - macOS → `osascript`
+  - altro → il canale di notifica di Claude Code (`preferredNotifChannel` in `/config`)
+- **Titolo della scheda del terminale**: `⏳ Claude sta lavorando…` durante il turno, `✅ Claude ha finito` alla fine
+- **Campanella** (BEL): in Windows Terminal fa comparire l'icona 🔔 sulla scheda e lampeggiare la barra delle applicazioni
+
+Le risposte interrotte (Esc) e i subagenti non generano notifiche.
+
+## Installazione
+
+Al prompt di una sessione di Claude Code nel terminale:
+
+```
+/plugin install done-notify --marketplace bbaldini/ding-claude
+```
+
+Rispondi `y` per aggiungere il marketplace, poi scegli lo scope (utente = tutte le sessioni).
+
+Da shell:
+
+```
+claude plugin install done-notify --marketplace bbaldini/ding-claude
+```
+
+## Suggerimenti
+
+- Windows Terminal: per il lampeggio della barra delle applicazioni imposta `"bellStyle": ["window", "taskbar"]` nel profilo.
+- Se Claude Code sovrascrive il titolo della scheda, in Windows Terminal disattiva "Suppress title changes" (deve restare spento) oppure affidati a campanella e toast.
+- Su Windows le notifiche arrivano a nome di "Windows PowerShell": verifica che non siano silenziate in Impostazioni → Sistema → Notifiche.
+
+## Licenza
+
+MIT

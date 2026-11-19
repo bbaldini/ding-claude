@@ -1,0 +1,5 @@
+{
+  "name": "done-notify",
+  "version": "0.1.0",
+  "description": "Avvisa quando Claude ha finito di rispondere: notifica di sistema, campanella e titolo della scheda del terminale."
+}
