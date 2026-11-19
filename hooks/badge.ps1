@@ -54,14 +54,16 @@ public static class DingBadge {
     return (long)(root != IntPtr.Zero ? root : h);
   }
 
-  // Cloche (coperchio da piatto / campanello da reception) bianca su un cerchio arancione.
+  // Cloche (coperchio da piatto / campanello da reception) bianca su un cerchio arancione saturo bordato di nero.
   static IntPtr Draw() {
     using (var bmp = new Bitmap(32, 32))
     using (var g = Graphics.FromImage(bmp)) {
       g.SmoothingMode = SmoothingMode.AntiAlias;
       g.Clear(Color.Transparent);
-      using (var bg = new SolidBrush(Color.FromArgb(255, 217, 119, 87)))
-        g.FillEllipse(bg, 0, 0, 31, 31);
+      using (var bg = new SolidBrush(Color.FromArgb(255, 255, 90, 20)))
+        g.FillEllipse(bg, 1, 1, 29, 29);
+      using (var k = new Pen(Color.Black, 2))
+        g.DrawEllipse(k, 1, 1, 29, 29);         // bordo nero
       using (var w = new SolidBrush(Color.White)) {
         g.FillEllipse(w, 14, 5, 4, 4);          // pomello
         g.FillPie(w, 7, 8, 18, 24, 180, 180);   // cupola
