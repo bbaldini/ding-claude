@@ -1,0 +1,67 @@
+<!doctype html><html><head><meta charset="utf-8">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,500&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>html,body{margin:0;background:#0e0c0b}svg{display:block}</style></head><body>
+<svg width="1280" height="400" viewBox="0 0 1280 400" xmlns="http://www.w3.org/2000/svg">
+<defs>
+ <radialGradient id="bg" cx="0.74" cy="0.42" r="0.8"><stop offset="0" stop-color="#2a1e16"/><stop offset=".55" stop-color="#16110e"/><stop offset="1" stop-color="#0c0a09"/></radialGradient>
+ <linearGradient id="bell" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffb066"/><stop offset="1" stop-color="#f26a1b"/></linearGradient>
+ <linearGradient id="term" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#1f1a17"/><stop offset="1" stop-color="#171310"/></linearGradient>
+ <filter id="grain"><feTurbulence type="fractalNoise" baseFrequency=".9" numOctaves="2" stitchTiles="stitch"/><feColorMatrix values="0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 .045 0"/></filter>
+ <filter id="soft" x="-30%" y="-30%" width="160%" height="160%"><feGaussianBlur stdDeviation="14"/></filter>
+ <filter id="shadow" x="-20%" y="-20%" width="140%" height="150%"><feDropShadow dx="0" dy="10" stdDeviation="14" flood-color="#000" flood-opacity=".55"/></filter>
+</defs>
+<rect width="1280" height="400" fill="url(#bg)"/>
+<rect width="1280" height="400" filter="url(#grain)"/>
+
+<!-- testo -->
+<text x="72" y="96" font-family="Inter" font-weight="600" font-size="13" letter-spacing="3.2" fill="#f28a3c">A PLUGIN FOR CLAUDE CODE</text>
+<text x="66" y="200" font-family="Fraunces" font-weight="300" font-size="118" fill="#f6efe7" letter-spacing="-2">ding</text>
+<circle cx="262" cy="122" r="10" fill="#f26a1b" stroke="#0e0c0b" stroke-width="3"/>
+<text font-family="Inter" font-size="18" fill="#b3a79c"><tspan x="72" y="274">Tells you when Claude has finished its task,</tspan><tspan x="72" y="301">so you can switch windows while it works.</tspan></text>
+<g font-family="Inter" font-size="12.5" fill="#8f8378" letter-spacing=".3">
+ <text x="72" y="351">Notification  ·  tab title  ·  terminal bell  ·  taskbar badge</text>
+ <line x1="404" y1="341" x2="404" y2="354" stroke="#3b322c"/>
+ <text x="420" y="351" fill="#f28a3c" font-weight="600">WSL  ·  Windows  ·  macOS  ·  Linux</text>
+</g>
+
+<g transform="translate(-40 0)">
+<!-- terminale -->
+<g filter="url(#shadow)">
+ <rect x="690" y="70" width="440" height="250" rx="12" fill="url(#term)" stroke="#2e2622"/>
+ <rect x="690" y="70" width="440" height="34" rx="12" fill="#231d19"/><rect x="690" y="92" width="440" height="12" fill="#231d19"/>
+ <circle cx="712" cy="87" r="5" fill="#ff5f57" opacity=".85"/><circle cx="730" cy="87" r="5" fill="#febc2e" opacity=".85"/><circle cx="748" cy="87" r="5" fill="#28c840" opacity=".85"/>
+ <text x="910" y="91" text-anchor="middle" font-family="Inter" font-size="12" fill="#c9bdb1">✅ Claude has finished</text>
+</g>
+<g font-family="JetBrains Mono" font-size="13">
+ <text x="712" y="136" fill="#8f8378">&gt; <tspan fill="#e9dfd5">refactor the payment module and run the tests</tspan></text>
+ <text x="712" y="162" fill="#f28a3c">●<tspan fill="#b3a79c"> Read 14 files · Edited 6 files</tspan></text>
+ <text x="712" y="186" fill="#f28a3c">●<tspan fill="#b3a79c"> Bash: npm test</tspan></text>
+ <text x="730" y="208" fill="#6fcf8a">✓ 128 passed <tspan fill="#8f8378">(41.2 s)</tspan></text>
+ <text x="712" y="234" fill="#f28a3c">●<tspan fill="#e9dfd5"> Done. The refactor is complete and all tests pass.</tspan></text>
+ <rect x="712" y="252" width="9" height="16" fill="#e9dfd5" opacity=".7"/>
+</g>
+
+<!-- notifica -->
+<g filter="url(#shadow)">
+ <rect x="890" y="236" width="300" height="78" rx="12" fill="#2b241f" stroke="#3f342d"/>
+ <circle cx="924" cy="275" r="17" fill="url(#bell)"/>
+ <path d="M917 280 h14 l-2-3 v-6 a5 5 0 0 0-10 0 v6 z" fill="#1b130e"/><circle cx="924" cy="283" r="2" fill="#1b130e"/>
+ <text x="952" y="266" font-family="Inter" font-weight="600" font-size="13.5" fill="#f6efe7">Claude has finished · 2m 14s</text>
+ <text x="952" y="288" font-family="Inter" font-size="12.5" fill="#b3a79c">Done. The refactor is complete…</text>
+</g>
+
+</g>
+<!-- campana -->
+<g transform="translate(1178 118)">
+ <circle r="58" fill="#f26a1b" opacity=".25" filter="url(#soft)"/>
+ <path d="M-30 -48 a62 62 0 0 0 0 96" fill="none" stroke="#f28a3c" stroke-opacity=".35" stroke-width="2"/>
+ <path d="M30 -48 a62 62 0 0 1 0 96" fill="none" stroke="#f28a3c" stroke-opacity=".35" stroke-width="2"/>
+ <path d="M-40 -60 a80 80 0 0 0 0 120" fill="none" stroke="#f28a3c" stroke-opacity=".18" stroke-width="2"/>
+ <path d="M40 -60 a80 80 0 0 1 0 120" fill="none" stroke="#f28a3c" stroke-opacity=".18" stroke-width="2"/>
+ <g transform="rotate(-12)">
+  <path d="M-26 18 h52 l-7-10 v-18 a19 19 0 0 0-38 0 v18 z" fill="url(#bell)" stroke="#1b130e" stroke-width="3" stroke-linejoin="round"/>
+  <circle cx="0" cy="25" r="6" fill="url(#bell)" stroke="#1b130e" stroke-width="3"/>
+  <rect x="-4" y="-35" width="8" height="7" rx="3" fill="#ffb066" stroke="#1b130e" stroke-width="2.5"/>
+ </g>
+</g>
+</svg></body></html>

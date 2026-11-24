@@ -1,3 +1,5 @@
+<p align="center"><img src="docs/banner.jpg" alt="ding — tells you when Claude has finished its task" width="100%"></p>
+
 # ding-claude 🔔
 
 Plugin per Claude Code (terminale) che ti avvisa quando Claude **ha finito di rispondere**, così puoi cambiare finestra mentre lavora.
